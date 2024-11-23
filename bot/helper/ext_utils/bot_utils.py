@@ -287,7 +287,7 @@ def get_readable_message():
             msg += f"\nTime: {download.seeding_time()}"
         else:
             msg += f"<blockquote>Size: {download.size()}"
-        msg +=  f"<b> | 💣/stop_{download.gid()[:8]}</b></blockquote>\n\n
+        msg +=  f"<b> | 💣/stop_{download.gid()[:8]}</b></blockquote>\n\n"
     if len(msg) == 0:
         return None, None
     if tasks > STATUS_LIMIT:
