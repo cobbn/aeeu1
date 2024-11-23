@@ -15,7 +15,7 @@ from urllib.parse import urlparse
 from asyncio.subprocess import PIPE
 from concurrent.futures import ThreadPoolExecutor
 
-from psutil import disk_usage
+from psutil import virtual_memory, cpu_percent, disk_usage, net_io_counters
 from aiohttp import ClientSession as aioClientSession
 from aiofiles import open as aiopen
 from aiofiles.os import path as aiopath
@@ -105,7 +105,7 @@ SIZE_UNITS = ["B", "KB", "MB", "GB", "TB", "PB"]
 STATUS_START = 0
 PAGES = 1
 PAGE_NO = 1
-STATUS_LIMIT = 4
+STATUS_LIMIT = 6
 
 
 class MirrorStatus:
@@ -248,10 +248,13 @@ def source(self):
 
 
 def get_readable_message():
-    msg = "<b>Powered by Aeon</b>\n\n"
+    msg = '<b><a href ="https://t.me/Reaperzclub">Powered By Reapers-Club</a></b>\n\n'
     button = None
     tasks = len(download_dict)
     current_time = get_readable_time(time() - bot_start_time)
+    sent = get_readable_file_size(net_io_counters().bytes_sent)
+    recv = get_readable_file_size(net_io_counters().bytes_recv)
+    traf = get_readable_file_size(net_io_counters().bytes_sent + net_io_counters().bytes_recv)
     if config_dict["BOT_MAX_TASKS"]:
         bmax_task = f"/{config_dict['BOT_MAX_TASKS']}"
     else:
@@ -270,13 +273,12 @@ def get_readable_message():
             MirrorStatus.STATUS_SEEDING,
             MirrorStatus.STATUS_PROCESSING,
         ]:
-            msg += f"<blockquote><code>{progress_bar(download.progress())}</code> {download.progress()}"
-            msg += f"\n{download.processed_bytes()} of {download.size()}"
-            msg += f"\nSpeed: {download.speed()}"
-            msg += f"\nEstimated: {download.eta()}"
+            msg += f"<blockquote><b>{progress_bar(download.progress())} » {download.speed()}</b>"
+            msg += f"\n<b>{download.processed_bytes()} of {download.size()} | {download.eta()}</b>"
+            msg += f"\n<b>User:</b> {source(download)}"
             if hasattr(download, "seeders_num"):
                 with contextlib.suppress(Exception):
-                    msg += f"\nSeeders: {download.seeders_num()} | Leechers: {download.leechers_num()}"
+                    msg += f"<b>| S/L:</b> {download.seeders_num()}/{download.leechers_num()}"
         elif download.status() == MirrorStatus.STATUS_SEEDING:
             msg += f"<blockquote>Size: {download.size()}"
             msg += f"\nSpeed: {download.upload_speed()}"
@@ -285,8 +287,7 @@ def get_readable_message():
             msg += f"\nTime: {download.seeding_time()}"
         else:
             msg += f"<blockquote>Size: {download.size()}"
-        msg += f"\nElapsed: {get_readable_time(time() - download.message.date.timestamp())}</blockquote>"
-        msg += f"\n<blockquote>/stop_{download.gid()[:8]}</blockquote>\n\n"
+        msg +=  f"<b> | 💣/stop_{download.gid()[:8]}</b></blockquote>\n\n
     if len(msg) == 0:
         return None, None
     if tasks > STATUS_LIMIT:
@@ -295,9 +296,7 @@ def get_readable_message():
         buttons.callback(f"{PAGE_NO}/{PAGES}", "status ref")
         buttons.callback("Next", "status nex")
         button = buttons.column(3)
-    msg += f"<b>• Tasks</b>: {tasks}{bmax_task}"
-    msg += f"\n<b>• Bot uptime</b>: {current_time}"
-    msg += f"\n<b>• Free disk space</b>: {get_readable_file_size(disk_usage('/usr/src/app/downloads/').free)}"
+   msg += f"<b>Tasks:</b> {tasks}{bmax_task} <b> | UPTM:</b> {currentTime} <b>| Free:</b> {get_readable_file_size(disk_usage('/usr/src/app/downloads/').free)} <b>| Band:</b> {traf}"
     return msg, button
 
 
@@ -369,7 +368,7 @@ def is_url(url):
 
 
 def is_gdrive_link(url):
-    return "drive.google.com" in url
+    return "drive.google.com" in url or "drive.usercontent.google.com" in url
 
 
 def is_telegram_link(url):
