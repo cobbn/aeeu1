@@ -46,7 +46,7 @@ async def mirror_status(_, message):
         msg += f"\n<b>Free disk space</b>: {free}"
         msg += f"\n<b>Bandwidth</b>: {traf}"
 
-        reply_message = await send_message(message, msg)
+        reply_message = await send_message(message, msg, photo='Random')
         await delete_message(message)
         await one_minute_del(reply_message)
     else:
