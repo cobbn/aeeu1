@@ -1,6 +1,6 @@
 from time import time
 
-from psutil import disk_usagge, net_io_counters
+from psutil import disk_usage, net_io_counters
 from pyrogram.filters import regex, command
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 
