@@ -296,7 +296,7 @@ def get_readable_message():
         buttons.callback(f"{PAGE_NO}/{PAGES}", "status ref")
         buttons.callback("Next", "status nex")
         button = buttons.column(3)
-  msg += f"<b>Tasks:</b> {tasks}{bmax_task} <b> | UPTM:</b> {currentTime} <b>| Free:</b> {get_readable_file_size(disk_usage('/usr/src/app/downloads/').free)} <b>| Band:</b> {traf}"
+  msg += f"<b>Tasks:</b> {tasks}{bmax_task} <b> | UPTM:</b> {current_Time} <b>| Free:</b> {get_readable_file_size(disk_usage('/usr/src/app/downloads/').free)} <b>| Band:</b> {traf}"
     return msg, button
 
 
