@@ -41,7 +41,7 @@ async def mirror_status(_, message):
         sent = get_readable_file_size(net_io_counters().bytes_sent)
         recv = get_readable_file_size(net_io_counters().bytes_recv)
         traf = get_readable_file_size(net_io_counters().bytes_sent + net_io_counters().bytes_recv)
-        msg = 'No downloads are currently in progress.\n'
+        msg = '<b>No downloads are currently in progress.</b>\n'
         msg += f"\n<b>Bot uptime</b>: {current_time}"
         msg += f"\n<b>Free disk space</b>: {free}"
         msg += f"\n<b>Bandwidth</b>: {traf}"
