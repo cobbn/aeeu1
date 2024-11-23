@@ -1,6 +1,6 @@
 from time import time
 
-from psutil import disk_usage
+from psutil import disk_usagge, net_io_counters
 from pyrogram.filters import regex, command
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 
@@ -38,9 +38,13 @@ async def mirror_status(_, message):
     if count == 0:
         current_time = get_readable_time(time() - bot_start_time)
         free = get_readable_file_size(disk_usage("/usr/src/app/downloads/").free)
-        msg = "No downloads are currently in progress.\n"
-        msg += f"\n<b>• Bot uptime</b>: {current_time}"
-        msg += f"\n<b>• Free disk space</b>: {free}"
+        sent = get_readable_file_size(net_io_counters().bytes_sent)
+        recv = get_readable_file_size(net_io_counters().bytes_recv)
+        traf = get_readable_file_size(net_io_counters().bytes_sent + net_io_counters().bytes_recv)
+        msg = 'No downloads are currently in progress.\n'
+        msg += f"\n<b>Bot uptime</b>: {currentTime}"
+        msg += f"\n<b>Free disk space</b>: {free}"
+        msg += f"\n<b>Bandwidth</b>: {traf}"
 
         reply_message = await send_message(message, msg)
         await delete_message(message)
