@@ -30,6 +30,7 @@ pybase64
 pycountry
 pyrofork==2.2.11
 python-dotenv
+pytz
 pyshorteners
 python-magic
 qbittorrent-api
@@ -41,4 +42,4 @@ tenacity
 uv
 uvloop
 xattr
-yt-dlp[default]
+yt-dlp[default,curl-cffi]
