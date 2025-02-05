@@ -20,6 +20,7 @@ gunicorn
 httpx
 langcodes
 lxml
+megasdk
 motor
 mutagen
 markdown
