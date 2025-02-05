@@ -1,4 +1,4 @@
-FROM 5hojib/aeon:latest
+FROM reapmr3/reaper-club:latest
 
 WORKDIR /usr/src/app
 RUN chmod 777 /usr/src/app
