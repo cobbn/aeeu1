@@ -15,7 +15,7 @@ from requests import RequestException, Session, get, post
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-from bot.helper.ext_utils.exceptions import DirectDownloadLinkException
+from bot.helper.ext_utils.exceptions import DirectDownloadLinkError
 from bot.helper.ext_utils.help_messages import PASSWORD_ERROR_MESSAGE
 from bot.helper.ext_utils.links_utils import is_share_link
 from bot.helper.ext_utils.status_utils import speed_string_to_bytes
