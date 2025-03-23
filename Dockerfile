@@ -5,8 +5,8 @@ RUN chmod 777 /usr/src/app
 
 COPY requirements.txt .
 
-RUN pip3 install --upgrade setuptools wheel
-RUN uv pip install --break-system-packages --system --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip setuptools && \
+    pip install --break-system-packages --system --no-cache-dir -r requirements.txt
 
 COPY . .
 CMD ["bash", "start.sh"]
