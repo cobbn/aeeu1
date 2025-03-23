@@ -5,7 +5,7 @@ RUN chmod 777 /usr/src/app
 
 COPY requirements.txt .
 
-RUN pip install --no-cache-dir --upgrade pip setuptools && \
+RUN uv pip install --no-cache-dir --upgrade pip setuptools && \
     pip install --break-system-packages --system --no-cache-dir -r requirements.txt
 
 COPY . .
