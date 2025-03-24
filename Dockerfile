@@ -6,7 +6,7 @@ RUN chmod 777 /usr/src/app
 COPY requirements.txt .
 
 #RUN pip install --no-cache-dir --upgrade pip setuptools
-RUN  pip install --break-system-packages --system --no-cache-dir -r requirements.txt
+RUN  pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 CMD ["bash", "start.sh"]
