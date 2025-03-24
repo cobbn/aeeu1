@@ -22,7 +22,6 @@ langcodes
 lxml
 motor
 mutagen
-megasdk
 markdown
 natsort
 pillow
