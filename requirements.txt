@@ -29,7 +29,7 @@ pillow
 psutil
 pybase64
 pycountry
-pyroblack
+pyrofork==2.2.11
 python-dotenv
 pytz
 pyshorteners
@@ -38,7 +38,7 @@ qbittorrent-api
 requests
 speedtest-cli
 telegraph
-tgcrypto-pyroblack
+tgcrypto-pyrofork
 tenacity
 uv
 uvloop
