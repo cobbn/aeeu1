@@ -23,6 +23,7 @@ lxml
 motor
 mutagen
 markdown
+megasdk
 natsort
 pillow
 psutil
